@@ -25,6 +25,12 @@ dotnet tool install --global dotnet-ef
 - Instalar pacote do EF para criar banco de dados
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0
 
+- Criar migration (modificação no BD)
+dotnet ef migrations add InitialCreate
+
+- Executar a migration
+dotnet ef database update
+
 Entity Framework Core
 https://learn.microsoft.com/pt-br/training/modules/build-web-api-minimal-database/2-what-is-entity-framework-core
 Tecnologia para persistir dados em aplicativos .NET, dá suporte a um grande número de bancos de dados populares, incluindo SQLite, MySQL, PostgreSQL, Oracle e Microsoft SQL Server. É uma camada de abstração que ele desacopla seu aplicativo do provedor de banco de dados.

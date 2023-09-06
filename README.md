@@ -11,8 +11,14 @@ dotnet new web -o PizzaStore -f net6.0
 dotnet run
 
 - Instalar pacote Swagger
-dotnet add package Swashbuckle.AspNetCore --version 6.1.4   
+dotnet add package Swashbuckle.AspNetCore --version 6.1.4  
 
+- Instalar pacote EF
+dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 6.0
+
+Entity Framework Core
+https://learn.microsoft.com/pt-br/training/modules/build-web-api-minimal-database/2-what-is-entity-framework-core
+Tecnologia para persistir dados em aplicativos .NET, dá suporte a um grande número de bancos de dados populares, incluindo SQLite, MySQL, PostgreSQL, Oracle e Microsoft SQL Server.
 
 Infos+
 //Nessas primeiras linhas de código, você cria um construtor. No builder, você constrói uma instância de aplicativo app:

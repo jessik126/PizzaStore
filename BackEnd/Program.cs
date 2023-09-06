@@ -1,7 +1,6 @@
 
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using PizzaStore.Models;
 using PizzaStore.Services;
 using PizzaStore.Infra;
 
@@ -45,33 +44,6 @@ app.UseSwaggerUI(c =>
 app.UseCors(MyAllowSpecificOrigins);
 
 //configurar o roteamento (instancia app)
-app.MapGet("/pizzas", async (StoreDb db) => await db.Pizzas.ToListAsync());
-app.MapGet("/pizza/{id}", async (StoreDb db, int id) =>
-{
-    return Results.Ok(await db.Pizzas.FindAsync(id));
-});
-
-app.MapPost("/pizza", async (IPizzaService service, Pizza pizza) =>
-{
-    await service.CreatePizza(pizza);
-
-    return Results.Created($"/pizza/{pizza.Id}", pizza);
-});
-
-app.MapPut("/pizza/{id}", async (IPizzaService service, Pizza updatepizza, int id) =>
-{
-    if(id != updatepizza.Id) {
-        return Results.BadRequest();
-    }
-
-    var result = await service.UpdatePizza(updatepizza);
-    return result ? Results.NoContent() : Results.NotFound();
-});
-
-app.MapDelete("/pizza/{id}", async (IPizzaService service, int id) =>
-{
-    var result = await service.DeletePizza(id);
-    return result ? Results.Ok() : Results.NotFound();
-});
+app.ConfigurePizzaApis();
 
 app.Run();

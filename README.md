@@ -37,6 +37,25 @@ Tecnologia para persistir dados em aplicativos .NET, dá suporte a um grande nú
     classe de contexto - cria e gerencia a conexão de banco de dados.
     classe de entidade - cada classe representa um objeto de negócios em seu aplicativo e geralmente é mapeado para uma única tabela de banco de dados. Servem como um modelo de code-first para suas tabelas de banco de dados.
 
+SPA
+Se você estiver com pressa e seu aplicativo precisar transitar entre páginas, coletar dados de entrada do usuário e agir como um cliente, ele deverá usar uma estrutura SPA. Quatro estruturas principais atendem a esses critérios:
+
+- Angular: essa estrutura já existe há muitos anos e usa muito o TypeScript. O TypeScript é semelhante ao C# e as ferramentas são boas para Angular.
+- React: é popular e você pode usar ES6 e TypeScript. Como o Angular, ele tem ótimas ferramentas.
+- Vue.js: também é uma boa opção, e utilizado por muitas pessoas.
+- Svelte: o svelte é relativamente novo neste contexto, mas faz um ótimo trabalho com o visual se você estiver trabalhando em HTML, JavaScript e CSS. Ele tem um compilador avançado e capaz de ocultar as partes da estrutura em alto nível.
+
+- Criar o app
+npx create-react-app pizza-web
+
+- Iniciar o app
+cd pizza-web
+yarn start (para instalar: npm install --global yarn)
+
+- Adicionar o main.jscd
+- Adicionar css
+yarn add styled-components
+
 Infos+
 //Nessas primeiras linhas de código, você cria um construtor. No builder, você constrói uma instância de aplicativo app:
 var builder = WebApplication.CreateBuilder(args);
@@ -45,3 +64,5 @@ var app = builder.Build();
 app.MapGet("/", () => "Hello World!");
 //O middleware geralmente é um código que intercepta a solicitação e executa verificações como a autenticação ou que garante que o cliente tenha permissão de executar essa operação de acordo com o CORS
 app.UseSwagger();
+
+Yarn é um dos principais gerenciadores de pacotes JavaScript

@@ -11,10 +11,10 @@ namespace PizzaStore.Models
     }
 
 
-    //DbContext representa uma conexão ou sessão usada para consultar e salvar as instâncias das entidades em um banco de dados
-    class PizzaDb : DbContext
+    //DbContext representa uma conexão ou sessão usada para consultar e salvar as instâncias das entidades em um banco de dados, no caso 'StoreDb'
+    public class StoreDb : DbContext
     {
-        public PizzaDb(DbContextOptions options) : base(options) { }
+        public StoreDb(DbContextOptions options) : base(options) { }
         public DbSet<Pizza> Pizzas { get; set; } = null!;
     }
 

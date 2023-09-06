@@ -59,6 +59,10 @@ yarn add styled-components
 - Rodar servidor ficticio
 npx json-server --watch --port 5000 db.json (para instalar: npm install json-server)
 
+- Rodar API backend
+dotnet ef database update
+>alterar o program.cs da api para utilizar o cors
+
 Infos+
 //Nessas primeiras linhas de código, você cria um construtor. No builder, você constrói uma instância de aplicativo app:
 var builder = WebApplication.CreateBuilder(args);

@@ -56,7 +56,7 @@ yarn start (para instalar: npm install --global yarn)
 - Adicionar css
 yarn add styled-components
 
-- Rodar servidor ficticio
+- Rodar servidor ficticio (db.json)
 npx json-server --watch --port 5000 db.json (para instalar: npm install json-server)
 
 - Rodar API backend

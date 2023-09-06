@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using PizzaStore.Models;
 using PizzaStore.Services;
+using PizzaStore.Infra;
 
 const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -14,6 +15,10 @@ var connectionString = builder.Configuration.GetConnectionString("Pizzas") ?? "D
 //adicionar recursos como CORS, Entity Framework ou Swagger (propriedade services)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSqlite<StoreDb>(connectionString);
+
+//inversão de controle com injeção de dependencia
+builder.Services.AddScoped<IPizzaService, PizzaService>();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "PizzaStore API", Description = "Making the Pizzas you love", Version = "v1" });
@@ -41,37 +46,32 @@ app.UseCors(MyAllowSpecificOrigins);
 
 //configurar o roteamento (instancia app)
 app.MapGet("/pizzas", async (StoreDb db) => await db.Pizzas.ToListAsync());
-app.MapPost("/pizza", async (StoreDb db, Pizza pizza) =>
-{
-    await db.Pizzas.AddAsync(pizza);
-    await db.SaveChangesAsync();
-    return Results.Created($"/pizza/{pizza.Id}", pizza);
-});
-
 app.MapGet("/pizza/{id}", async (StoreDb db, int id) =>
 {
     return Results.Ok(await db.Pizzas.FindAsync(id));
 });
-app.MapPut("/pizza/{id}", async (StoreDb db, Pizza updatepizza, int id) =>
-{
-    var pizza = await db.Pizzas.FindAsync(id);
-    if (pizza is null) return Results.NotFound();
 
-    pizza.Name = updatepizza.Name;
-    pizza.Description = updatepizza.Description;
-    await db.SaveChangesAsync();
-    return Results.NoContent();
-});
-app.MapDelete("/pizza/{id}", async (StoreDb db, int id) =>
+app.MapPost("/pizza", async (IPizzaService service, Pizza pizza) =>
 {
-    var pizza = await db.Pizzas.FindAsync(id);
-    if (pizza is null)
-    {
-        return Results.NotFound();
+    await service.CreatePizza(pizza);
+
+    return Results.Created($"/pizza/{pizza.Id}", pizza);
+});
+
+app.MapPut("/pizza/{id}", async (IPizzaService service, Pizza updatepizza, int id) =>
+{
+    if(id != updatepizza.Id) {
+        return Results.BadRequest();
     }
-    db.Pizzas.Remove(pizza);
-    await db.SaveChangesAsync();
-    return Results.Ok();
+
+    var result = await service.UpdatePizza(updatepizza);
+    return result ? Results.NoContent() : Results.NotFound();
+});
+
+app.MapDelete("/pizza/{id}", async (IPizzaService service, int id) =>
+{
+    var result = await service.DeletePizza(id);
+    return result ? Results.Ok() : Results.NotFound();
 });
 
 app.Run();

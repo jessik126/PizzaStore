@@ -52,9 +52,12 @@ npx create-react-app pizza-web
 cd pizza-web
 yarn start (para instalar: npm install --global yarn)
 
-- Adicionar o main.jscd
+- Adicionar o main.js
 - Adicionar css
 yarn add styled-components
+
+- Rodar servidor ficticio
+npx json-server --watch --port 5000 db.json (para instalar: npm install json-server)
 
 Infos+
 //Nessas primeiras linhas de código, você cria um construtor. No builder, você constrói uma instância de aplicativo app:
